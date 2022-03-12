@@ -1,43 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./assets/css/style.css" />
-
-  <title>Weather Dashboaerd</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
-<body>
-  <div>
-    <h1>Weather Dashboard</h1>
-  </div>
-  <!-- SEARCH BOX -->
-  <div>
-    <!-- search by city -->
-    <div>
-      <h2>Search for a city:</h2>
-      <button>Search</button>
-    </div>
-    <!-- frequently searched cities -->
-    <div>
-      <button></button>
-    </div>
-    <!-- weather right now -->
-    <div>
 
+<body>
+  <div class="columns is-full level ">
+    <h1 class="title has-text-centered ">Weather Dashboard</h1>
+  </div>
+
+  <!-- SEARCH BOX -->
+  <section class="tile is-ancestor ">
+    <!-- search by city -->
+    <div class="tile is-4 is-vertical">
+      <div class="tile">
+        <div class="tile is-parent is-vertical">
+          <div class="tile is-child">
+            <h2 class="card-header">Search for a city:</h2>
+            <div class="field">
+              <div class="control">
+                <input class="input" type="text" placeholder="e.g. Dallas">
+                <button class="button is-rounded">Search</button>
+              </div>
+              <!-- frequently searched cities -->
+              <div class="tile is-child">
+                <h3 class="card-header">Frequently Searched Cities:</h3>
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-rounded">Atlanta</button>
+                    <button class="button is-rounded">Boston</button>
+                    <button class="button is-rounded">Chicago</button>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- weather right now -->
+  <section class="tile is-ancestor">
+    <div class="tile is-8 is-offset-one-third is-centered">
     </div>
     <!-- 5-day forecast -->
-    <div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+    <div class="tile is-8 is-offset-one-third is-centered">
+      <div class="columns"></div>
+      <div class="columns"></div>
+      <div class="columns"></div>
+      <div class="columns"></div>
     </div>
-  </div>
-
-  <script src="./assets/js/script.js"></script>
-
+  </section>
 </body>
+
 </html>
