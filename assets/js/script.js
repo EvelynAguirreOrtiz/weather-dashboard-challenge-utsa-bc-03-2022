@@ -28,38 +28,49 @@ $("wind")
 // search saved to local storage
 // 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 
-// save search history to local storage
+// save city search history to local storage
 $(document).ready(function () {
-	$(".search-text").val(localStorage.getItem("search-text"));
+	$("#city").val(localStorage.getItem("city"));
 });
-// search for city
+// search any city
 $("#search-btn").click(function(){
-  	localStorage.setItem(".search-text", $(".search-text").value);
 
-    console.log("click")
+// link to weather info
+
+  	localStorage.setItem("city", document.getElementById("city").value);
 });
+
+
+
+// $(document).ready(function () {
+// 	$("#text11").val(localStorage.getItem("text11"));
+// });
+// saveSchedule11El.addEventListener('click', function () {
+// 	localStorage.setItem("text11", document.getElementById("text11").value);
+// });
+
 
 
 
 // click pre-selected city
 // save city to local storage
 
-// click Atlanta
+// search Atlanta
 $("#atlanta").click(function(){
   console.log("atl")
 });
 
-// click Boston
+// search Boston
 $("#boston").click(function(){
   console.log("click")
 });
 
-// click Chicago
+// search Chicago
 $("#chicago").click(function(){
   console.log("click")
 });
 
-// Click Dallas
+// search Dallas
 $(".dallas").click(function(){
   console.log("click")
 });
