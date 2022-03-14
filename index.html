@@ -5,60 +5,111 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Weather Dashboard</title>
+  <!-- WEATHER LINK -->
+  <!-- ICON LINK -->
+  <!-- jquery? -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css" />
+
 </head>
 
 <body>
-  <div class="columns is-full level ">
-    <h1 class="title has-text-centered ">Weather Dashboard</h1>
+  <div class="tile container is-fluid box">
+    <h1 class="title is-1">Weather Dashboard</h1>
   </div>
 
   <!-- SEARCH BOX -->
   <section class="tile is-ancestor ">
+
     <!-- search by city -->
-    <div class="tile is-4 is-vertical">
+    <div class="tile is-3 is-vertical box">
       <div class="tile">
         <div class="tile is-parent is-vertical">
           <div class="tile is-child">
-            <h2 class="card-header">Search for a city:</h2>
+            <h2 class="title is-2">Search for a city:</h2>
             <div class="field">
               <div class="control">
                 <input class="input" type="text" placeholder="e.g. Dallas">
-                <button class="button is-rounded">Search</button>
+                <button class="button is-rounded is-fullwidth subtitle is-4">Search</button>
               </div>
               <!-- frequently searched cities -->
               <div class="tile is-child">
-                <h3 class="card-header">Frequently Searched Cities:</h3>
+                <h3 class="title is-3">Frequently Searched Cities:</h3>
                 <div class="field">
                   <div class="control">
-                    <button class="button is-rounded">Atlanta</button>
-                    <button class="button is-rounded">Boston</button>
-                    <button class="button is-rounded">Chicago</button>
+                    <button class="button is-rounded is-fullwidth subtitle is-4">Atlanta</button>
+                    <button class="button is-rounded is-fullwidth subtitle is-4">Boston</button>
+                    <button class="button is-rounded is-fullwidth subtitle is-4">Chicago</button>
+                    <button class="button is-rounded is-fullwidth subtitle is-4">Dallas</button>
+                    <button class="button is-rounded is-fullwidth subtitle is-4">Houston</button>
+                    <button class="button is-rounded is-fullwidth subtitle is-4">Washington, D.C.</button>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- weather right now -->
 
+    <div class="tile is-9 is-vertical box">
+      <div class="tile">
+        <div class="tile is-parent is-vertical box">
+          <section class="tile is-child box">
+            <h2 class="title is-2">Weather info</h2>
+            <h3 class="title is-3">Current Temp</h3>
+            <h3 class="title is-3">Humidity</h3>
+            <h3 class="title is-4">Wind Speed</h3>
+            <h3 class="title is-4">UV Index</h3>
+          </section>
+          <!-- 5-day forecast -->
 
-
+          <div class="tile is-9 box">
+            <div class="tile">
+              <div class="tile is-parent">
+                <div class="tile is-child columns">
+                  <div class="column">
+                    <h2 class="title is-3">Day</h2>
+                    <h3 class="title is-4">Current Temp</h3>
+                    <h3 class="title is-4">Humidity</h3>
+                    <h3 class="title is-5">Wind Speed</h3>
+                  </div>
+                  <div class="column">
+                    <h2 class="title is-3">Day</h2>
+                    <h3 class="title is-4">Current Temp</h3>
+                    <h3 class="title is-4">Humidity</h3>
+                    <h3 class="title is-5">Wind Speed</h3>
+                  </div>
+                  <div class="column">
+                    <h2 class="title is-3">Day</h2>
+                    <h3 class="title is-4">Current Temp</h3>
+                    <h3 class="title is-4">Humidity</h3>
+                    <h3 class="title is-5">Wind Speed</h3>
+                  </div>
+                  <div class="column">
+                    <h2 class="title is-3">Day</h2>
+                    <h3 class="title is-4">Current Temp</h3>
+                    <h3 class="title is-4">Humidity</h3>
+                    <h3 class="title is-5">Wind Speed</h3>
+                  </div>
+                  <div class="column">
+                    <h2 class="title is-3">Day</h2>
+                    <h3 class="title is-4">Current Temp</h3>
+                    <h3 class="title is-4">Humidity</h3>
+                    <h3 class="title is-5">Wind Speed</h3>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="./assets/js/script.js"></script>
 
-  <!-- weather right now -->
-  <section class="tile is-ancestor">
-    <div class="tile is-8 is-offset-one-third is-centered">
-    </div>
-    <!-- 5-day forecast -->
-    <div class="tile is-8 is-offset-one-third is-centered">
-      <div class="columns"></div>
-      <div class="columns"></div>
-      <div class="columns"></div>
-      <div class="columns"></div>
-    </div>
-  </section>
 </body>
-
 </html>
