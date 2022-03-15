@@ -2,9 +2,9 @@
 // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,hourly,&appid=3a0cc64f74febe3d2b029f4d03b00c0f
 
 
+
+
 // load local weather
-// show local weather conditions, temperature, humidity, wind speed, UV index
-// favorable, moderate, or severe
 var dayOfWeek = document.getElementById("current-day");
 var dateToday = document.getElementById("current-date");
 var city = document.getElementById("current-city");
@@ -14,30 +14,32 @@ var humidityNow = document.getElementById("current-humidity");
 var windNow = document.getElementById("current-wind");
 var uvNow = document.getElementById("current-uv");
 
-
 // 5-day forecast that displays the date, an icon representation of weather conditions, temperature, wind speed,  humidity
 var futureDay = document.querySelector(".day");
 var futureDate = document.querySelector(".date");
 var futureIcon = document.querySelector(".icon");
-var futureTemp = document.querySelector(".temp");
+var futureTemp = document.querySelector("temp");
 var futureHumidity = document.querySelector(".humidity");
 var futureWind = document.querySelector(".wind");
 
+// weather data
+var weatherData
 
-// search a different city
-// click "search" to choose city
-// search saved to local storage
-// 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 
-// save city search history to local storage
+
+'http://api.openweathermap.org/data/2.5/forecast?q=' + inputText.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f'
+
+
+
 $(document).ready(function () {
   $("#city").val(localStorage.getItem("city"));
 });
 // click button to get weather
 $("#search-btn").click(function () {
 
-  // link to weather info
+  // search for data
 
+  // save city search history to local storage
   localStorage.setItem("city", document.getElementById("city").value);
 });
 
@@ -45,10 +47,36 @@ $("#search-btn").click(function () {
 // click pre-selected city
 // save city to local storage
 
+var cityData =
+{ "city" : "Atlanta";
+  "latitude" : 33.749;
+  "longitude" : -84.388
+}, 
+{ "city" : "Boston";
+  "latitude" : 42.3584;
+  "longitude" : -71.0598
+},
+{ "city" : "Chicago",
+  "latitude" : 41.85,
+  "longitude" : -87.65
+}
+{ "city" : "Dallas",
+  "latitude" : 32.7668,
+  "longitude" : -96.7836
+},
+{ "city" : "Houston",
+  "latitude" : 29.7633,
+  "longitude": -95.3633
+},
+{ "city" : "Washington, D.C.",
+  "latitude" : 47.5001,
+  "longitude" : -120.5015
+};
+
+
 // search Atlanta
 $("#atlanta").click(function () {
-
-  console.log("atl")
+  getWeather();
 });
 
 // search Boston
@@ -57,13 +85,12 @@ $("#boston").click(function () {
 });
 
 // search Chicago
-
 // var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + 33.44 + "&lon=" + -94.04 + "&exclude=minutely,hourly&appid=3a0cc64f74febe3d2b029f4d03b00c0f";
 
-var apiUrlChi ="https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly&appid=3a0cc64f74febe3d2b029f4d03b00c0f"
-var getWeather = function() {
-  fetch(apiUrlChi).then(function(response) {
-    response.json().then(function(data) {
+var apiUrlChi = "https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly&appid=3a0cc64f74febe3d2b029f4d03b00c0f"
+var getWeather = function () {
+  fetch(apiUrlChi).then(function (response) {
+    response.json().then(function (data) {
       console.log(data);
     });
   });
@@ -71,7 +98,6 @@ var getWeather = function() {
 
 $("#chicago").click(function () {
   getWeather();
-  console.log("chi")
 });
 
 
