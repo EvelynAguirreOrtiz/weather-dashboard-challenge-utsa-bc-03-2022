@@ -33,7 +33,6 @@ $(document).ready(function () {
 });
   $("#search-btn").click(function () {
     var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCity.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
-
     var getWeather = function () {
       fetch(apiUrlCity).then(function (response) {
         response.json().then(function (data) {
@@ -44,7 +43,6 @@ $(document).ready(function () {
     getWeather();
   localStorage.setItem("search-city", document.getElementById("search-city").value);
 });
-
 
 
 
@@ -80,14 +78,32 @@ $(document).ready(function () {
 
 
 // search Atlanta
-$("#atlanta").click(function () {
 
+$("#atlanta").click(function () {
+  inputCity.value = "Atlanta";
+  var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCity.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+  var getWeather = function () {
+    fetch(apiUrlCity).then(function (response) {
+      response.json().then(function (data) {
+        console.log(data);
+      });
+    });
+  };
   getWeather();
 });
 
 // search Boston
 $("#boston").click(function () {
-  console.log("boston")
+  inputCity.value = "Boston";
+  var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCity.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+  var getWeather = function () {
+    fetch(apiUrlCity).then(function (response) {
+      response.json().then(function (data) {
+        console.log(data);
+      });
+    });
+  };
+  getWeather();
 });
 
 // search Chicago
@@ -103,25 +119,62 @@ $("#boston").click(function () {
 //     });
 //   });
 // };
-// $("#chicago").click(function () {
-//   getWeather();
-// });
+
+$("#chicago").click(function () {
+  inputCity.value = "Chicago";
+  var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCity.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+  var getWeather = function () {
+    fetch(apiUrlCity).then(function (response) {
+      response.json().then(function (data) {
+        console.log(data);
+      });
+    });
+  };
+  getWeather();
+});
 
 
 
 // search Dallas
 $(".dallas").click(function () {
-  console.log("dal")
+  inputCity.value = "Dallas";
+  var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCity.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+  var getWeather = function () {
+    fetch(apiUrlCity).then(function (response) {
+      response.json().then(function (data) {
+        console.log(data);
+      });
+    });
+  };
+getWeather();
 });
 
 // Search Houston
 $("#houston").click(function () {
-  console.log("hou")
+  inputCity.value = "Houston";
+  var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCity.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+  var getWeather = function () {
+    fetch(apiUrlCity).then(function (response) {
+      response.json().then(function (data) {
+        console.log(data);
+      });
+    });
+  };
+getWeather();
 });
 
 // search Washington, DC
 $("#washington-dc").click(function () {
-  console.log("DC")
+  inputCity.value = "Washington, D.C.";
+  var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCity.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+  var getWeather = function () {
+    fetch(apiUrlCity).then(function (response) {
+      response.json().then(function (data) {
+        console.log(data);
+      });
+    });
+  };
+getWeather();
 });
 
 
