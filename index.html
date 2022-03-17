@@ -6,20 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Weather Dashboard</title>
 
-  <!-- WEATHER LINK -->
-  <!-- https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key} -->
-
 
   <!-- ICON LINK -->
   <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
     
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" 
     integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
-
-
-<!-- jquery ?-->
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 <link rel="stylesheet" href="./assets/css/style.css" />
 
@@ -27,7 +20,7 @@
 
 <body>
   <div class="tile container is-fluid box">
-    <h1 class="title is-1">Weather Dashboard</h1>
+    <h1 class="title banner">Weather Dashboard</h1>
   </div>
 
   <!-- SEARCH BOX -->
@@ -39,10 +32,10 @@
         <div class="tile is-parent is-vertical">
           <div class="tile is-child">
             <div class="box">
-              <h2 class="title is-2">Search for a city:</h2>
+              <h2>Search for a city:</h2>
               <div class="field">
                 <div class="control">
-                  <input class="input is-large" id="city" type="text" placeholder="e.g. San Francisco">
+                  <input class="input is-large" id="search-city" type="text" placeholder="e.g. San Francisco">
                   <button class="button is-rounded is-fullwidth subtitle is-4" id="search-btn">Search</button>
                 </div>
               </div>
@@ -50,7 +43,7 @@
 
             <!-- frequently searched cities -->
             <div class="tile is-child">
-              <h3 class="title is-4">Frequently Searched Cities:</h3>
+              <h3>Frequently Searched Cities:</h3>
               <div class="field">
                 <div class="control">
                   <button class="button is-rounded is-fullwidth subtitle is-4" id="atlanta">Atlanta</button>
@@ -72,67 +65,68 @@
     <div class="tile is-9 is-vertical box">
       <div class="tile">
         <div class="tile is-parent is-vertical box">
-          <section class="tile is-child box">
-            <span class="subtitle is-3" id="current-day">day</span>
-            <span class="subtitle is-4" id="current-date">date</span>
-            <br>
-            <div class="icon-text">
-              <span class="title is-2" id="city">Current city</span>
-              <span class="icon">
-                <i class="fas fa-flag-checkered fas fa-2x" id="icon"></i>
-              </span>
-            </div>
+          <section class="tile is-child box current-weather">
+            <h3 id="current-day">day</h3>
+            <h2 id="current-date">date</h2>
+              <h1 id="current-city">Current city</h1>
+              
+              <img src="" class="icon" id="icon">
               <br>
               <br>
-              <span class="title is-3">Current Temperature:</span>
-              <span class="title is-2" id="current-temp">temp</span>
+              <h3>Current Temperature : <span id="current-temp">temp</span></h3>
               <br>
+              <h3>Humidity : <span id="current-humidity">humidity</span></h3>
               <br>
-              <h3 class="title is-3" id="current-humidity">Humidity</h3>
-              <h3 class="title is-4" id="current-wind">Wind Speed</h3>
-              <h3 class="title is-4" id="current-uv">UV Index</h3>
+              <h4>Wind Speed : <span id="current-wind">speed</span></h4>
+              <br>
+              <h4>UV Index : <span id="current-uv">uvi</span></h4>
           </section>
           <!-- 5-day forecast -->
-          <div class="tile is-9 box">
+          <div class="tile is-12 box">
             <div class="tile">
-              <div class="tile is-parent">
-                <div class="tile is-child columns">
+              <div class="tile is-parent future-forecast">
+                <div class="tile is-child columns future-block">
                   <div class="column">
-                    <h2 class="title is-3 day">Day</h2> 
-                    <h3 class="title is-4 date">date</h3>
-                    <i class="fas fa-arrow-right fas fa icon"></i>
-                    <h3 class="title is-4 temp">Temp</h3>
-                    <h3 class="title is-4 humidity">Humidity</h3>
-                    <h3 class="title is-5 wind">Wind Speed</h3>
+                    <h3 id="current-day">day</h3>
+                    <h4 id="current-date">date</h2>
+                    <img src="" class="icon" id="icon">
+                    <h4>Temperature : <span id="current-temp">temp</span></h3>
+                    <h4>Humidity : <span id="current-humidity">humidity</span></h3>
+                    <h5>Wind Speed : <span id="current-wind">speed</span></h4>
                   </div>
                   <div class="column">
-                    <h2 class="title is-3">Day</h2>
-                    <br>
-                    <h3 class="title is-4">Temp</h3>
-                    <h3 class="title is-4">Humidity</h3>
-                    <h3 class="title is-5">Wind Speed</h3>
+                    <h3 id="current-day">day</h3>
+                    <h4 id="current-date">date</h2>
+                    <img src="" class="icon" id="icon">
+                    <h4>Temperature : <span id="current-temp">temp</span></h3>
+                    <h4>Humidity : <span id="current-humidity">humidity</span></h3>
+                    <h5>Wind Speed : <span id="current-wind">speed</span></h4>
                   </div>
                   <div class="column">
-                    <h2 class="title is-3">Day</h2>
-                    <br>
-                    <h3 class="title is-4">Temp</h3>
-                    <h3 class="title is-4">Humidity</h3>
-                    <h3 class="title is-5">Wind Speed</h3>
+                    <h3 id="current-day">day</h3>
+                    <h4 id="current-date">date</h2>
+                    <img src="" class="icon" id="icon">
+                    <h4>Temperature : <span id="current-temp">temp</span></h3>
+                    <h4>Humidity : <span id="current-humidity">humidity</span></h3>
+                    <h5>Wind Speed : <span id="current-wind">speed</span></h4>
                   </div>
                   <div class="column">
-                    <h2 class="title is-3">Day</h2>
-                    <br>
-                    <h3 class="title is-4">Temp</h3>
-                    <h3 class="title is-4">Humidity</h3>
-                    <h3 class="title is-5">Wind Speed</h3>
+                    <h3 id="current-day">day</h3>
+                    <h4 id="current-date">date</h2>
+                    <img src="" class="icon" id="icon">
+                    <h4>Temperature : <span id="current-temp">temp</span></h3>
+                    <h4>Humidity : <span id="current-humidity">humidity</span></h3>
+                    <h5>Wind Speed : <span id="current-wind">speed</span></h4>
                   </div>
                   <div class="column">
-                    <h2 class="title is-3">Day</h2>
-                    <br>
-                    <h3 class="title is-4">Temp</h3>
-                    <h3 class="title is-4">Humidity</h3>
-                    <h3 class="title is-5">Wind Speed</h3>
+                    <h3 id="current-day">day</h3>
+                    <h4 id="current-date">date</h2>
+                    <img src="" class="icon" id="icon">
+                    <h4>Temperature : <span id="current-temp">temp</span></h3>
+                    <h4>Humidity : <span id="current-humidity">humidity</span></h3>
+                    <h5>Wind Speed : <span id="current-wind">speed</span></h4>
                   </div>
+
                 </div>
               </div>
             </div>

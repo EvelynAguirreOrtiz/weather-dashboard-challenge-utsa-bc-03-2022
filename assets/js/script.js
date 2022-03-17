@@ -1,10 +1,12 @@
-// 7 day forecast w alerts
-// https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,hourly,&appid=3a0cc64f74febe3d2b029f4d03b00c0f
+// current weather
+// https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,hourly,&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial
 
 
+// geocode
+// http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial
 
-
-// load local weather
+// load current weather
+var inputCity = document.getElementById("search-city")
 var dayOfWeek = document.getElementById("current-day");
 var dateToday = document.getElementById("current-date");
 var city = document.getElementById("current-city");
@@ -13,6 +15,8 @@ var tempNow = document.getElementById("current-temp");
 var humidityNow = document.getElementById("current-humidity");
 var windNow = document.getElementById("current-wind");
 var uvNow = document.getElementById("current-uv");
+
+// 'https://api.openweathermap.org/data/2.5/weather?q=' + inputText.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
 
 // 5-day forecast that displays the date, an icon representation of weather conditions, temperature, wind speed,  humidity
 var futureDay = document.querySelector(".day");
@@ -23,59 +27,61 @@ var futureHumidity = document.querySelector(".humidity");
 var futureWind = document.querySelector(".wind");
 
 // weather data
-var weatherData
-
-
-
-'http://api.openweathermap.org/data/2.5/forecast?q=' + inputText.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f'
-
-
 
 $(document).ready(function () {
-  $("#city").val(localStorage.getItem("city"));
+  $("#search-city").val(localStorage.getItem("search-city"));
 });
-// click button to get weather
-$("#search-btn").click(function () {
+  $("#search-btn").click(function () {
+    var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCity.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
 
-  // search for data
-
-  // save city search history to local storage
-  localStorage.setItem("city", document.getElementById("city").value);
+    var getWeather = function () {
+      fetch(apiUrlCity).then(function (response) {
+        response.json().then(function (data) {
+          console.log(data);
+        });
+      });
+    };
+    getWeather();
+  localStorage.setItem("search-city", document.getElementById("search-city").value);
 });
+
+
+
 
 
 // click pre-selected city
 // save city to local storage
 
-var cityData =
-{ "city" : "Atlanta";
-  "latitude" : 33.749;
-  "longitude" : -84.388
-}, 
-{ "city" : "Boston";
-  "latitude" : 42.3584;
-  "longitude" : -71.0598
-},
-{ "city" : "Chicago",
-  "latitude" : 41.85,
-  "longitude" : -87.65
-}
-{ "city" : "Dallas",
-  "latitude" : 32.7668,
-  "longitude" : -96.7836
-},
-{ "city" : "Houston",
-  "latitude" : 29.7633,
-  "longitude": -95.3633
-},
-{ "city" : "Washington, D.C.",
-  "latitude" : 47.5001,
-  "longitude" : -120.5015
-};
+// var cityData =
+// { "city" : "Atlanta";
+//   "latitude" : 33.749;
+//   "longitude" : -84.388
+// }, 
+// { "city" : "Boston";
+//   "latitude" : 42.3584;
+//   "longitude" : -71.0598
+// },
+// { "city" : "Chicago",
+//   "latitude" : 41.85,
+//   "longitude" : -87.65
+// }
+// { "city" : "Dallas",
+//   "latitude" : 32.7668,
+//   "longitude" : -96.7836
+// },
+// { "city" : "Houston",
+//   "latitude" : 29.7633,
+//   "longitude": -95.3633
+// },
+// { "city" : "Washington, D.C.",
+//   "latitude" : 47.5001,
+//   "longitude" : -120.5015
+// };
 
 
 // search Atlanta
 $("#atlanta").click(function () {
+
   getWeather();
 });
 
@@ -87,18 +93,19 @@ $("#boston").click(function () {
 // search Chicago
 // var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + 33.44 + "&lon=" + -94.04 + "&exclude=minutely,hourly&appid=3a0cc64f74febe3d2b029f4d03b00c0f";
 
-var apiUrlChi = "https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly&appid=3a0cc64f74febe3d2b029f4d03b00c0f"
-var getWeather = function () {
-  fetch(apiUrlChi).then(function (response) {
-    response.json().then(function (data) {
-      console.log(data);
-    });
-  });
-};
+// var apiUrlChi = 'https://api.openweathermap.org/data/2.5/forecast?q=Chicago&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+// var getWeather = function () {
+//   fetch(apiUrlChi).then(function (response) {
+//     response.json().then(function (data) {
 
-$("#chicago").click(function () {
-  getWeather();
-});
+
+//       console.log(data);
+//     });
+//   });
+// };
+// $("#chicago").click(function () {
+//   getWeather();
+// });
 
 
 
@@ -120,3 +127,11 @@ $("#washington-dc").click(function () {
 
 // click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
+// n icon representation of weather conditions, the temperature, the wind speed, and the humidity
+// for (var i = 0; i < 5; i++) {
+  
+  // var date = list[i].dt;
+  // var temp = list[i].main.temp;
+  // var icon = list[i].main.weather.icon;
+  // var humidity = list[i].main.humidity;
+// };
