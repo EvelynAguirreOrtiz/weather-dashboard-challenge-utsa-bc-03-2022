@@ -2,7 +2,6 @@
   box-sizing: border-box;
 
 }
-
 :root {
   --primary: #44e9ff;
   --secondary: #497980;
@@ -10,7 +9,6 @@
   --grey: #333;
   font-size: 62.5%;
 }
-
 body {
   /* background-color: var(--primary); */
   /* height: 100vh; */
@@ -56,6 +54,11 @@ h5 {
 
 .button {
   font-size: 20px;
+}
+
+.icon {
+  height: 15em;
+  width: 15em;
 }
 
 .future-block {

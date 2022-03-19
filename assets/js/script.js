@@ -7,8 +7,7 @@
 // http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial
 
 // load current weather
-var currentWeatherEl = document.getElementById("current-weather")
-var inputCityEl = document.getElementById("search-city")
+var inputCityEl = document.getElementById("search-city");
 var dayOfWeekEl = document.getElementById("current-day");
 var dateTodayEl = document.getElementById("current-date");
 var cityEl = document.getElementById("current-city");
@@ -28,44 +27,56 @@ var tempEl = document.querySelector("temp");
 var humidityEl = document.querySelector(".humidity");
 var windEl = document.querySelector(".wind");
 
+var currentWeatherEl = {}
+
+
 
 
 $(document).ready(function () {
   $("#search-city").val(localStorage.getItem("search-city"));
 });
+// search city 
 $("#search-btn").click(function () {
+    // find city geolocation
     var apiUrlGeoLoc = 'http://api.openweathermap.org/geo/1.0/direct?q=' + inputCityEl.value + '&limit=1&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
     var getLatLon = function () {
       fetch(apiUrlGeoLoc).then(function (response) {
         response.json().then(function (data) {
-          console.log(data);
- 
-    //     });
-    //   });
-    // };
-    // getLatLon();
-  
-    var latEl = data[0].lat;
-    var lonEl = data[0].lon;
-    var apiUrlCity = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latEl + '&lon=' + lonEl + '&exclude=minutely,hourly,&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
-    var getWeather = function () {
-      fetch(apiUrlCity).then(function (response) {
-        response.json().then(function (data) {
+          // find search city conditions
+          var latEl = data[0].lat;
+          var lonEl = data[0].lon;
+          var apiUrlCity = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latEl + '&lon=' + lonEl + '&exclude=minutely,hourly,&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+          var getWeather = function () {
+            fetch(apiUrlCity).then(function (response) {
+              response.json().then(function (data) {
+              console.log(data);
 
-          console.log(data);
-        });
+              var dateEl = new Date(data.current.dt * 1000).toDateString("en", { weekday: "long", });
+              document.getElementById("current-date").innerHTML = dateEl;
+          
+              var apiIconCode = data.daily[0].weather[0].icon;
+              var apiIconUrl = 'https://openweathermap.org/img/wn/' + apiIconCode + '@2x.png';
+              $('#icon').attr('src', apiIconUrl);
+
+              
+              cityEl.innerHTML = inputCityEl.value;
+              tempNowEl.innerHTML = data.current.temp;
+              humidityNowEl.innerHTML = data.daily[0].humidity;
+              windNowEl.innerHTML = data.daily[0].wind_speed;
+              uvNowEl.innerHTML = data.daily[0].uvi;
+              
+
+
+
+            });
+          });
+        };
+        getWeather();
       });
-    };
-    getWeather();
-
-
-
-});
-});
-};
+    });
+  };
 getLatLon();
-
-
+  // save search city 
   localStorage.setItem("search-city", document.getElementById("search-city").value);
 });
 
@@ -147,14 +158,6 @@ $("#washington-dc").click(function () {
     fetch(apiUrlCity).then(function (response) {
       response.json().then(function (data) {
         console.log(data);
-
-        
-      //  = data['name']
-      // = data['list'][0]['main']['temp'];
-      //   = data['list'][0]['main']['humidty'];
-      // = data['list'][0]['main']['weather']['icon'];
-      // var wind = data['list'][0]['win']['speed'];
-
 
       });
     });
