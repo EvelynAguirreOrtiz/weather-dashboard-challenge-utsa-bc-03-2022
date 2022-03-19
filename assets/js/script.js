@@ -20,12 +20,12 @@ var uvNowEl = document.getElementById("current-uv");
 // 'https://api.openweathermap.org/data/2.5/weather?q=' + inputText.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
 
 // 5-day forecast that displays the date, an icon representation of weather conditions, temperature, wind speed,  humidity
-var dayEl = document.querySelector(".day");
-var dateEl = document.querySelector(".date");
-var iconEl = document.querySelector(".icon");
-var tempEl = document.querySelector("temp");
-var humidityEl = document.querySelector(".humidity");
-var windEl = document.querySelector(".wind");
+// var dayEl = document.getElementById(".day");
+// var dateEl = document.getElementById("date");
+// var iconEl = document.getElementById("icon");
+// var tempEl = document.getElementById("temp");
+// var humidityEl = document.getElementById("humidity");
+// var windEl = document.getElementById("wind");
 
 var currentWeatherEl = {}
 
@@ -50,21 +50,38 @@ $("#search-btn").click(function () {
             fetch(apiUrlCity).then(function (response) {
               response.json().then(function (data) {
               console.log(data);
-
-              var dateEl = new Date(data.current.dt * 1000).toDateString("en", { weekday: "long", });
-              document.getElementById("current-date").innerHTML = dateEl;
-          
+              // convert to date
+              var currentDateEl = new Date(data.current.dt * 1000).toDateString("en", { weekday: "long", });
+              document.getElementById("current-date").innerHTML = currentDateEl;
+              // get icon src 
               var apiIconCode = data.daily[0].weather[0].icon;
               var apiIconUrl = 'https://openweathermap.org/img/wn/' + apiIconCode + '@2x.png';
               $('#icon').attr('src', apiIconUrl);
 
-              
               cityEl.innerHTML = inputCityEl.value;
               tempNowEl.innerHTML = data.current.temp;
+              uvNowEl.innerHTML = data.daily[0].uvi;
               humidityNowEl.innerHTML = data.daily[0].humidity;
               windNowEl.innerHTML = data.daily[0].wind_speed;
               uvNowEl.innerHTML = data.daily[0].uvi;
               
+              var getFutureData = function() {
+                for (let i=1; i<=5; i++) { 
+                // document.getElementById("date" + i).innerHTML = data.daily[i].dt;
+                document.getElementById("humidity" + i).innerHTML = data.daily[i].humidity;
+                document.getElementById("wind" + i).innerHTML = data.daily[i].wind_speed;
+                document.getElementById("temp" + i).innerHTML = data.daily[i].temp.max;
+              
+                var apiFutureIconCode = data.daily[i].weather[0].icon;
+                var apiFutureIconUrl = 'https://openweathermap.org/img/wn/' + apiFutureIconCode + '@2x.png';
+                $('#icon' + i).attr('src', apiFutureIconUrl);
+
+                var futureDateEl = new Date(data.daily[i].dt * 1000).toDateString("en", { weekday: "long", });
+                document.getElementById("date + i").innerHTML = futureDateEl;
+  
+                };
+              };
+              getFutureData();
 
 
 
@@ -77,7 +94,7 @@ $("#search-btn").click(function () {
   };
 getLatLon();
   // save search city 
-  localStorage.setItem("search-city", document.getElementById("search-city").value);
+localStorage.setItem("search-city", document.getElementById("search-city").value);
 });
 
 

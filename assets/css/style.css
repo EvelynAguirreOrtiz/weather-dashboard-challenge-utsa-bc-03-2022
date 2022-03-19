@@ -17,7 +17,6 @@ body {
   font-family: "IBM Plex Sans", sans-serif;
   /* color: var(--dark); */
   /* line-height: 1.5; */
-  /* font-size: 16px; */
   /* text-align: center; */
   /* margin: auto; */
 }
@@ -42,6 +41,10 @@ h5 {
   font-size: 20px;
 }
 
+h6 {
+  font-size: 15px;
+}
+
 .ribbon {
   border: 1px solid;
   border-radius: 10px;
@@ -56,9 +59,9 @@ h5 {
   font-size: 20px;
 }
 
-.icon {
-  height: 15em;
-  width: 15em;
+.current-icon {
+  height: 20em;
+  width: 20em;
 }
 
 .future-block {
@@ -67,11 +70,16 @@ h5 {
 }
 
 .future-block .column {
-  background-color: rgb(131, 128, 128);
+  background-color: silver;
   border: 1px solid ;
   border-radius: 5px;
   margin: 0px 10px;
   /* padding: 20px; */
+}
+
+.future-icon {
+  height: 10em;
+  width: 10em;
 }
 
 /* @media screen and (max-width: 575px) {
