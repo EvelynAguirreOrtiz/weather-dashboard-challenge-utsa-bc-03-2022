@@ -10,16 +10,13 @@ The user is able to use the application to search for current and future weather
 
 The user is presented with the city name, the current and future dates, the current UV index, as well as an icon representation of the weather conditions, temperature, and wind speed for each day.
 
-
 ### Built With 
 
 - HTML
 - CSS
 - JavaScript
 
-
-
 ### Website
-* The URL of the GitHub repository. Give the repository a unique name and include a high-quality README describing the project.
+https://evelynaguirreortiz.github.io/weather-dashboard-challenge-utsa-bc-03-2022/
 
 ![](./assets/images/weather-dashboard-screenshot.png)

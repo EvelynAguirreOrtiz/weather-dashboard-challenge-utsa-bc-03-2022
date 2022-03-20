@@ -91,6 +91,7 @@ h6 {
 .current-weather  {
   background-image: linear-gradient(rgba(189, 195, 199,1.0),rgb(17, 73, 110));
   box-shadow: 10px 10px;
+  padding: 60px;
 }
 
 #search-city {
@@ -102,5 +103,5 @@ h6 {
 
 #current-city {
   color: black;
-  font-size: 50px;
+  font-size: 60px;
 }
