@@ -2,27 +2,16 @@
   box-sizing: border-box;
 
 }
-:root {
-  --primary: #44e9ff;
-  --secondary: #497980;
-  --tertiary: rgb(192, 246, 253);
-  --grey: #333;
-  font-size: 62.5%;
-}
 body {
-  /* background-color: var(--primary); */
-  /* height: 100vh; */
+  height: 100vh;
   margin: auto;
-  /* padding: 0; */
   font-family: "IBM Plex Sans", sans-serif;
-  /* color: var(--dark); */
-  /* line-height: 1.5; */
-  /* text-align: center; */
-  /* margin: auto; */
+  box-shadow: 10px 10px;
 }
 
 h1 {
   font-size: 40px;
+  color: aliceblue;
 }
 
 h2 {
@@ -31,37 +20,54 @@ h2 {
 
 h3 {
   font-size: 30px;
+  color: aliceblue;
+
 }
 
 h4 {
   font-size: 25px;
+  color: aliceblue;
 }
 
 h5 {
   font-size: 20px;
+  color: aliceblue;
 }
 
 h6 {
   font-size: 15px;
+  color: aliceblue;
 }
 
 .ribbon {
   border: 1px solid;
   border-radius: 10px;
-  background-color: rgb(196, 192, 192);
+  background-color: rgb(17, 73, 110);
+  box-shadow: 10px 10px;
+
 } 
+
 .banner {
   margin: auto;
   font-size: 50px;
 }
 
 .button {
+  background-image: linear-gradient(rgba(149, 165, 166,1.0),rgb(17, 73, 110));
+  color:aliceblue;
   font-size: 20px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  box-shadow: 5px 5px rgba(149, 165, 166,1.0);
+}
+
+.search-box {
+  box-shadow: 5px 5px rgb(17, 73, 110);
 }
 
 .current-icon {
-  height: 20em;
-  width: 20em;
+  height: 30em;
+  width: 30em;
 }
 
 .future-block {
@@ -70,11 +76,11 @@ h6 {
 }
 
 .future-block .column {
-  background-color: silver;
+  background-image: linear-gradient(rgba(149, 165, 166,1.0),rgb(17, 73, 110));
   border: 1px solid ;
   border-radius: 5px;
   margin: 0px 10px;
-  /* padding: 20px; */
+  box-shadow: 10px 10px;
 }
 
 .future-icon {
@@ -82,9 +88,19 @@ h6 {
   width: 10em;
 }
 
-/* @media screen and (max-width: 575px) {
-  .search-box{
-    justify-content: start;
-  }
-  
-} */
+.current-weather  {
+  background-image: linear-gradient(rgba(189, 195, 199,1.0),rgb(17, 73, 110));
+  box-shadow: 10px 10px;
+}
+
+#search-city {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+#current-city {
+  color: black;
+  font-size: 50px;
+}

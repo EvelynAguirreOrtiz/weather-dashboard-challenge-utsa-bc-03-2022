@@ -6,10 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Weather Dashboard</title>
 
-  <!-- ICON LINK -->
-  <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
-
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"
     integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
@@ -32,14 +28,14 @@
               <h2>Search for a city:</h2>
               <div class="field">
                 <div class="control">
-                  <input class="input is-large" id="search-city" type="text" placeholder="e.g. San Francisco">
+                  <input class="input is-large " id="search-city" type="text" placeholder="e.g. San Francisco">
                   <button class="button is-rounded is-fullwidth" id="search-btn">Search</button>
                 </div>
               </div>
             </div>
             <!-- frequently searched cities -->
             <div class="tile is-child">
-              <h3>Frequently Searched Cities:</h3>
+              <h2>Frequently Searched Cities:</h2>
               <div class="field">
                 <div class="control">
                   <button class="button is-rounded is-fullwidth" id="atlanta">Atlanta</button>
@@ -58,72 +54,61 @@
     </div>
     </div>
     <!-- weather right now -->
-    <div class="tile is-9 is-vertical box">
+    <div class="tile is-9 is-vertical">
       <div class="tile">
-        <div class="tile is-parent is-vertical box">
-          <section class="tile is-child box" id="current-weather ">
-            <h3 id="current-date">date</h3>
-            <h1 id="current-city">Current city</h1>
+        <div class="tile is-parent is-vertical current-box">
+          <section class="tile is-child box current-weather" id="current-weather ">
+            <h3 id="current-date"></h3>
+            <h1 id="current-city"></h1>
             <img src="" class="current-icon" id="icon">
+            <h3>Current Temperature : <span id="current-temp"></span><span>°</span></h3>
             <br>
+            <h4>Humidity : <span id="current-humidity">humidity</span><span> %</span></h4>
             <br>
-            <h3>Current Temperature : <span id="current-temp">temp</span></h3>
+            <h4>Wind Speed : <span id="current-wind">speed</span><span> mph</span></h4>
             <br>
-            <h3>Humidity : <span id="current-humidity">humidity</span></h3>
-            <br>
-            <h4>Wind Speed : <span id="current-wind">speed</span></h4>
-            <br>
-            <h4>UV Index : <span id="current-uv">uvi</span></h4>
+            <h4>UV Index : <span id="current-uv">uvi</span>/10</h4>
           </section>
           <!-- 5-day forecast -->
-          <div class="tile is-12 box">
+          <div class="tile is-12 ">
             <div class="tile">
               <div class="tile is-parent future-forecast">
                 <div class="tile is-child columns future-block">
                   <div class="column">
-                    <h4 id="date1">date</h4>
+                    <h4 id="date1"></h4>
                     <img src="" class="future-icon" id="icon1">
-                    <h5>Temperature : <span id="temp1">temp</span></h5>
-                    <h5>Humidity : <span id="humidity1">humidity</span></h5>
-                    <h6>Wind Speed : <span id="wind1">speed</span></h6>
+                    <h5>Temperature : <span id="temp1">temp</span><span>°</span></h5>
+                    <h5>Humidity : <span id="humidity1">humidity</span><span> %</span></h5>
+                    <h6>Wind Speed : <span id="wind1">speed</span><span> mph</span></h6>
                   </div>
                   <div class="column">
-                    <h3 id="current-day">day</h3>
-                    <h4 id="current-date">date</h2>
-                      <img src="" class="icon" id="icon1">
-                      <h4>Temperature : <span id="current-temp">temp</span></h3>
-                        <h4>Humidity : <span id="current-humidity">humidity</span></h3>
-                          <h5>Wind Speed : <span id="current-wind">speed</span>
-                        </h4>
+                    <h4 id="date2"></h4>
+                    <img src="" class="future-icon" id="icon2">
+                    <h5>Temperature : <span id="temp2">temp</span><span>°</span></h5>
+                    <h5>Humidity : <span id="humidity2">humidity</span><span> %</span></h5>
+                    <h6>Wind Speed : <span id="wind2">speed</span><span> mph</span></h6>
                   </div>
                   <div class="column">
-                    <h3 id="current-day">day</h3>
-                    <h4 id="current-date">date</h2>
-                      <img src="" class="icon" id="icon">
-                      <h4>Temperature : <span id="current-temp">temp</span></h3>
-                        <h4>Humidity : <span id="current-humidity">humidity</span></h3>
-                          <h5>Wind Speed : <span id="current-wind">speed</span>
-                        </h4>
+                    <h4 id="date3"></h4>
+                    <img src="" class="future-icon" id="icon3">
+                    <h5>Temperature : <span id="temp3">temp</span><span>°</span></h5>
+                    <h5>Humidity : <span id="humidity3">humidity</span><span> %</span></h5>
+                    <h6>Wind Speed : <span id="wind3">speed</span><span> mph</span></h6>
                   </div>
                   <div class="column">
-                    <h3 id="current-day">day</h3>
-                    <h4 id="current-date">date</h2>
-                      <img src="" class="icon" id="icon">
-                      <h4>Temperature : <span id="current-temp">temp</span></h3>
-                        <h4>Humidity : <span id="current-humidity">humidity</span></h3>
-                          <h5>Wind Speed : <span id="current-wind">speed</span>
-                        </h4>
+                    <h4 id="date4"></h4>
+                    <img src="" class="future-icon" id="icon4">
+                    <h5>Temperature : <span id="temp4">temp</span><span>°</span></h5>
+                    <h5>Humidity : <span id="humidity4">humidity</span><span> %</span></h5>
+                    <h6>Wind Speed : <span id="wind4">speed</span><span> mph</span></h6>
                   </div>
                   <div class="column">
-                    <h3 id="current-day">day</h3>
-                    <h4 id="current-date">date</h2>
-                      <img src="" class="icon" id="icon">
-                      <h4>Temperature : <span id="current-temp">temp</span></h3>
-                        <h4>Humidity : <span id="current-humidity">humidity</span></h3>
-                          <h5>Wind Speed : <span id="current-wind">speed</span>
-                        </h4>
+                    <h4 id="date5"></h4>
+                    <img src="" class="future-icon" id="icon5">
+                    <h5>Temperature : <span id="temp5">temp</span><span>°</span></h5>
+                    <h5>Humidity : <span id="humidity5">humidity</span><span> %</span></h5>
+                    <h6>Wind Speed : <span id="wind5">speed</span><span> mph</span></h6>
                   </div>
-
                 </div>
               </div>
             </div>

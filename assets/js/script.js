@@ -1,12 +1,3 @@
-// current weather
-// https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,hourly,&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial
-    // 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCityEl.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
-
-
-// geocode
-// http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial
-
-// load current weather
 var inputCityEl = document.getElementById("search-city");
 var dayOfWeekEl = document.getElementById("current-day");
 var dateTodayEl = document.getElementById("current-date");
@@ -17,23 +8,14 @@ var humidityNowEl = document.getElementById("current-humidity");
 var windNowEl = document.getElementById("current-wind");
 var uvNowEl = document.getElementById("current-uv");
 
-// 'https://api.openweathermap.org/data/2.5/weather?q=' + inputText.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
-
-// 5-day forecast that displays the date, an icon representation of weather conditions, temperature, wind speed,  humidity
-// var dayEl = document.getElementById(".day");
-// var dateEl = document.getElementById("date");
-// var iconEl = document.getElementById("icon");
-// var tempEl = document.getElementById("temp");
-// var humidityEl = document.getElementById("humidity");
-// var windEl = document.getElementById("wind");
-
-var currentWeatherEl = {}
-
-
-
-
 $(document).ready(function () {
   $("#search-city").val(localStorage.getItem("search-city"));
+  $("#current-date").val(localStorage.getItem("current-date"));
+  $("#current-temp").val(localStorage.getItem("current-temp"));
+  $("#icon-today").val(localStorage.getItem("icon-today"));
+  $("#current-humidity").val(localStorage.getItem("current-humidity"));
+  $("#current-wind").val(localStorage.getItem("current-wind")); 
+  $("current-uv").val(localStorage.getItem("current-uv")); 
 });
 // search city 
 $("#search-btn").click(function () {
@@ -77,14 +59,10 @@ $("#search-btn").click(function () {
                 $('#icon' + i).attr('src', apiFutureIconUrl);
 
                 var futureDateEl = new Date(data.daily[i].dt * 1000).toDateString("en", { weekday: "long", });
-                document.getElementById("date + i").innerHTML = futureDateEl;
-  
+                document.getElementById("date" + i).innerHTML = futureDateEl;
                 };
               };
               getFutureData();
-
-
-
             });
           });
         };
@@ -93,102 +71,350 @@ $("#search-btn").click(function () {
     });
   };
 getLatLon();
-  // save search city 
 localStorage.setItem("search-city", document.getElementById("search-city").value);
+localStorage.setItem("current-date", document.getElementById("current-date").value);
+localStorage.setItem("current-temp", document.getElementById("current-temp").value);
+localStorage.setItem("icon-today", document.getElementById("icon-today"));
+localStorage.setItem("current-humidity", document.getElementById("current-humidity").value);
+localStorage.setItem("current-wind", document.getElementById("current-wind").value); 
+localStorage.setItem("current-uv", document.getElementById("current-uv").value); 
 });
-
-
-
 
 // search Atlanta
 $("#atlanta").click(function () {
-  inputCityEl = "Atlanta";
-  var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCityEl.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
-  var getWeather = function () {
-    fetch(apiUrlCity).then(function (response) {
-      response.json().then(function (data) {
-        console.log(data);
+  inputCityEl.value = "Atlanta";
+    // find city geolocation
+    var apiUrlGeoLoc = 'http://api.openweathermap.org/geo/1.0/direct?q=' + inputCityEl.value + '&limit=1&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+    var getLatLon = function () {
+      fetch(apiUrlGeoLoc).then(function (response) {
+        response.json().then(function (data) {
+          // find search city conditions
+          var latEl = data[0].lat;
+          var lonEl = data[0].lon;
+          var apiUrlCity = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latEl + '&lon=' + lonEl + '&exclude=minutely,hourly,&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+          var getWeather = function () {
+            fetch(apiUrlCity).then(function (response) {
+              response.json().then(function (data) {
+              console.log(data);
+              // convert to date
+              var currentDateEl = new Date(data.current.dt * 1000).toDateString("en", { weekday: "long", });
+              document.getElementById("current-date").innerHTML = currentDateEl;
+              // get icon src 
+              var apiIconCode = data.daily[0].weather[0].icon;
+              var apiIconUrl = 'https://openweathermap.org/img/wn/' + apiIconCode + '@2x.png';
+              $('#icon').attr('src', apiIconUrl);
+
+              cityEl.innerHTML = inputCityEl.value;
+              tempNowEl.innerHTML = data.current.temp;
+              uvNowEl.innerHTML = data.daily[0].uvi;
+              humidityNowEl.innerHTML = data.daily[0].humidity;
+              windNowEl.innerHTML = data.daily[0].wind_speed;
+              uvNowEl.innerHTML = data.daily[0].uvi;
+              
+              var getFutureData = function() {
+                for (let i=1; i<=5; i++) { 
+                // document.getElementById("date" + i).innerHTML = data.daily[i].dt;
+                document.getElementById("humidity" + i).innerHTML = data.daily[i].humidity;
+                document.getElementById("wind" + i).innerHTML = data.daily[i].wind_speed;
+                document.getElementById("temp" + i).innerHTML = data.daily[i].temp.max;
+              
+                var apiFutureIconCode = data.daily[i].weather[0].icon;
+                var apiFutureIconUrl = 'https://openweathermap.org/img/wn/' + apiFutureIconCode + '@2x.png';
+                $('#icon' + i).attr('src', apiFutureIconUrl);
+
+                var futureDateEl = new Date(data.daily[i].dt * 1000).toDateString("en", { weekday: "long", });
+                document.getElementById("date" + i).innerHTML = futureDateEl;
+                };
+              };
+              getFutureData();
+            });
+          });
+        };
+        getWeather();
       });
     });
   };
-  getWeather();
+getLatLon();
 });
 
 // search Boston
 $("#boston").click(function () {
   inputCityEl.value = "Boston";
-  var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCityEl.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
-  var getWeather = function () {
-    fetch(apiUrlCity).then(function (response) {
-      response.json().then(function (data) {
-        console.log(data);
+    // find city geolocation
+    var apiUrlGeoLoc = 'http://api.openweathermap.org/geo/1.0/direct?q=' + inputCityEl.value + '&limit=1&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+    var getLatLon = function () {
+      fetch(apiUrlGeoLoc).then(function (response) {
+        response.json().then(function (data) {
+          // find search city conditions
+          var latEl = data[0].lat;
+          var lonEl = data[0].lon;
+          var apiUrlCity = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latEl + '&lon=' + lonEl + '&exclude=minutely,hourly,&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+          var getWeather = function () {
+            fetch(apiUrlCity).then(function (response) {
+              response.json().then(function (data) {
+              console.log(data);
+              // convert to date
+              var currentDateEl = new Date(data.current.dt * 1000).toDateString("en", { weekday: "long", });
+              document.getElementById("current-date").innerHTML = currentDateEl;
+              // get icon src 
+              var apiIconCode = data.daily[0].weather[0].icon;
+              var apiIconUrl = 'https://openweathermap.org/img/wn/' + apiIconCode + '@2x.png';
+              $('#icon').attr('src', apiIconUrl);
+
+              cityEl.innerHTML = inputCityEl.value;
+              tempNowEl.innerHTML = data.current.temp;
+              uvNowEl.innerHTML = data.daily[0].uvi;
+              humidityNowEl.innerHTML = data.daily[0].humidity;
+              windNowEl.innerHTML = data.daily[0].wind_speed;
+              uvNowEl.innerHTML = data.daily[0].uvi;
+              
+              var getFutureData = function() {
+                for (let i=1; i<=5; i++) { 
+                // document.getElementById("date" + i).innerHTML = data.daily[i].dt;
+                document.getElementById("humidity" + i).innerHTML = data.daily[i].humidity;
+                document.getElementById("wind" + i).innerHTML = data.daily[i].wind_speed;
+                document.getElementById("temp" + i).innerHTML = data.daily[i].temp.max;
+              
+                var apiFutureIconCode = data.daily[i].weather[0].icon;
+                var apiFutureIconUrl = 'https://openweathermap.org/img/wn/' + apiFutureIconCode + '@2x.png';
+                $('#icon' + i).attr('src', apiFutureIconUrl);
+
+                var futureDateEl = new Date(data.daily[i].dt * 1000).toDateString("en", { weekday: "long", });
+                document.getElementById("date" + i).innerHTML = futureDateEl;
+                };
+              };
+              getFutureData();
+            });
+          });
+        };
+        getWeather();
       });
     });
   };
-  getWeather();
+getLatLon();
 });
 
 $("#chicago").click(function () {
   inputCityEl.value = "Chicago";
-  var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCityEl.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
-  var getWeather = function () {
-    fetch(apiUrlCity).then(function (response) {
-      response.json().then(function (data) {
-        console.log(data);
+    // find city geolocation
+    var apiUrlGeoLoc = 'http://api.openweathermap.org/geo/1.0/direct?q=' + inputCityEl.value + '&limit=1&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+    var getLatLon = function () {
+      fetch(apiUrlGeoLoc).then(function (response) {
+        response.json().then(function (data) {
+          // find search city conditions
+          var latEl = data[0].lat;
+          var lonEl = data[0].lon;
+          var apiUrlCity = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latEl + '&lon=' + lonEl + '&exclude=minutely,hourly,&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+          var getWeather = function () {
+            fetch(apiUrlCity).then(function (response) {
+              response.json().then(function (data) {
+              console.log(data);
+              // convert to date
+              var currentDateEl = new Date(data.current.dt * 1000).toDateString("en", { weekday: "long", });
+              document.getElementById("current-date").innerHTML = currentDateEl;
+              // get icon src 
+              var apiIconCode = data.daily[0].weather[0].icon;
+              var apiIconUrl = 'https://openweathermap.org/img/wn/' + apiIconCode + '@2x.png';
+              $('#icon').attr('src', apiIconUrl);
+
+              cityEl.innerHTML = inputCityEl.value;
+              tempNowEl.innerHTML = data.current.temp;
+              uvNowEl.innerHTML = data.daily[0].uvi;
+              humidityNowEl.innerHTML = data.daily[0].humidity;
+              windNowEl.innerHTML = data.daily[0].wind_speed;
+              uvNowEl.innerHTML = data.daily[0].uvi;
+              
+              var getFutureData = function() {
+                for (let i=1; i<=5; i++) { 
+                // document.getElementById("date" + i).innerHTML = data.daily[i].dt;
+                document.getElementById("humidity" + i).innerHTML = data.daily[i].humidity;
+                document.getElementById("wind" + i).innerHTML = data.daily[i].wind_speed;
+                document.getElementById("temp" + i).innerHTML = data.daily[i].temp.max;
+              
+                var apiFutureIconCode = data.daily[i].weather[0].icon;
+                var apiFutureIconUrl = 'https://openweathermap.org/img/wn/' + apiFutureIconCode + '@2x.png';
+                $('#icon' + i).attr('src', apiFutureIconUrl);
+
+                var futureDateEl = new Date(data.daily[i].dt * 1000).toDateString("en", { weekday: "long", });
+                document.getElementById("date" + i).innerHTML = futureDateEl;
+                };
+              };
+              getFutureData();
+            });
+          });
+        };
+        getWeather();
       });
     });
   };
-  getWeather();
+getLatLon();
 });
 
 // search Dallas
-$(".dallas").click(function () {
+$("#dallas").click(function () {
   inputCityEl.value = "Dallas";
-  var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCityEl.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
-  var getWeather = function () {
-    fetch(apiUrlCity).then(function (response) {
-      response.json().then(function (data) {
-        console.log(data);
+    // find city geolocation
+    var apiUrlGeoLoc = 'http://api.openweathermap.org/geo/1.0/direct?q=' + inputCityEl.value + '&limit=1&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+    var getLatLon = function () {
+      fetch(apiUrlGeoLoc).then(function (response) {
+        response.json().then(function (data) {
+          // find search city conditions
+          var latEl = data[0].lat;
+          var lonEl = data[0].lon;
+          var apiUrlCity = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latEl + '&lon=' + lonEl + '&exclude=minutely,hourly,&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+          var getWeather = function () {
+            fetch(apiUrlCity).then(function (response) {
+              response.json().then(function (data) {
+              console.log(data);
+              // convert to date
+              var currentDateEl = new Date(data.current.dt * 1000).toDateString("en", { weekday: "long", });
+              document.getElementById("current-date").innerHTML = currentDateEl;
+              // get icon src 
+              var apiIconCode = data.daily[0].weather[0].icon;
+              var apiIconUrl = 'https://openweathermap.org/img/wn/' + apiIconCode + '@2x.png';
+              $('#icon').attr('src', apiIconUrl);
+
+              cityEl.innerHTML = inputCityEl.value;
+              tempNowEl.innerHTML = data.current.temp;
+              uvNowEl.innerHTML = data.daily[0].uvi;
+              humidityNowEl.innerHTML = data.daily[0].humidity;
+              windNowEl.innerHTML = data.daily[0].wind_speed;
+              uvNowEl.innerHTML = data.daily[0].uvi;
+              
+              var getFutureData = function() {
+                for (let i=1; i<=5; i++) { 
+                // document.getElementById("date" + i).innerHTML = data.daily[i].dt;
+                document.getElementById("humidity" + i).innerHTML = data.daily[i].humidity;
+                document.getElementById("wind" + i).innerHTML = data.daily[i].wind_speed;
+                document.getElementById("temp" + i).innerHTML = data.daily[i].temp.max;
+              
+                var apiFutureIconCode = data.daily[i].weather[0].icon;
+                var apiFutureIconUrl = 'https://openweathermap.org/img/wn/' + apiFutureIconCode + '@2x.png';
+                $('#icon' + i).attr('src', apiFutureIconUrl);
+
+                var futureDateEl = new Date(data.daily[i].dt * 1000).toDateString("en", { weekday: "long", });
+                document.getElementById("date" + i).innerHTML = futureDateEl;
+                };
+              };
+              getFutureData();
+            });
+          });
+        };
+        getWeather();
       });
     });
   };
-getWeather();
+getLatLon();
 });
 // Search Houston
 $("#houston").click(function () {
   inputCityEl.value = "Houston";
-  var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCityEl.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
-  var getWeather = function () {
-    fetch(apiUrlCity).then(function (response) {
-      response.json().then(function (data) {
-        console.log(data);
+    // find city geolocation
+    var apiUrlGeoLoc = 'http://api.openweathermap.org/geo/1.0/direct?q=' + inputCityEl.value + '&limit=1&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+    var getLatLon = function () {
+      fetch(apiUrlGeoLoc).then(function (response) {
+        response.json().then(function (data) {
+          // find search city conditions
+          var latEl = data[0].lat;
+          var lonEl = data[0].lon;
+          var apiUrlCity = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latEl + '&lon=' + lonEl + '&exclude=minutely,hourly,&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+          var getWeather = function () {
+            fetch(apiUrlCity).then(function (response) {
+              response.json().then(function (data) {
+              console.log(data);
+              // convert to date
+              var currentDateEl = new Date(data.current.dt * 1000).toDateString("en", { weekday: "long", });
+              document.getElementById("current-date").innerHTML = currentDateEl;
+              // get icon src 
+              var apiIconCode = data.daily[0].weather[0].icon;
+              var apiIconUrl = 'https://openweathermap.org/img/wn/' + apiIconCode + '@2x.png';
+              $('#icon').attr('src', apiIconUrl);
+
+              cityEl.innerHTML = inputCityEl.value;
+              tempNowEl.innerHTML = data.current.temp;
+              uvNowEl.innerHTML = data.daily[0].uvi;
+              humidityNowEl.innerHTML = data.daily[0].humidity;
+              windNowEl.innerHTML = data.daily[0].wind_speed;
+              uvNowEl.innerHTML = data.daily[0].uvi;
+              
+              var getFutureData = function() {
+                for (let i=1; i<=5; i++) { 
+                // document.getElementById("date" + i).innerHTML = data.daily[i].dt;
+                document.getElementById("humidity" + i).innerHTML = data.daily[i].humidity;
+                document.getElementById("wind" + i).innerHTML = data.daily[i].wind_speed;
+                document.getElementById("temp" + i).innerHTML = data.daily[i].temp.max;
+              
+                var apiFutureIconCode = data.daily[i].weather[0].icon;
+                var apiFutureIconUrl = 'https://openweathermap.org/img/wn/' + apiFutureIconCode + '@2x.png';
+                $('#icon' + i).attr('src', apiFutureIconUrl);
+
+                var futureDateEl = new Date(data.daily[i].dt * 1000).toDateString("en", { weekday: "long", });
+                document.getElementById("date" + i).innerHTML = futureDateEl;
+                };
+              };
+              getFutureData();
+            });
+          });
+        };
+        getWeather();
       });
     });
   };
-getWeather();
+getLatLon();
 });
 // search Washington, DC
-$("#washington-dc").click(function () {
+$("#washington-dc").click(function () { 
   inputCityEl.value = "Washington, D.C.";
-  var apiUrlCity = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputCityEl.value + '&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
-  var getWeather = function () {
-    fetch(apiUrlCity).then(function (response) {
-      response.json().then(function (data) {
-        console.log(data);
+    // find city geolocation
+    var apiUrlGeoLoc = 'http://api.openweathermap.org/geo/1.0/direct?q=' + inputCityEl.value + '&limit=1&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+    var getLatLon = function () {
+      fetch(apiUrlGeoLoc).then(function (response) {
+        response.json().then(function (data) {
+          // find search city conditions
+          var latEl = data[0].lat;
+          var lonEl = data[0].lon;
+          var apiUrlCity = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latEl + '&lon=' + lonEl + '&exclude=minutely,hourly,&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+          var getWeather = function () {
+            fetch(apiUrlCity).then(function (response) {
+              response.json().then(function (data) {
+              console.log(data);
+              // convert to date
+              var currentDateEl = new Date(data.current.dt * 1000).toDateString("en", { weekday: "long", });
+              document.getElementById("current-date").innerHTML = currentDateEl;
+              // get icon src 
+              var apiIconCode = data.daily[0].weather[0].icon;
+              var apiIconUrl = 'https://openweathermap.org/img/wn/' + apiIconCode + '@2x.png';
+              $('#icon').attr('src', apiIconUrl);
 
+              cityEl.innerHTML = inputCityEl.value;
+              tempNowEl.innerHTML = data.current.temp;
+              uvNowEl.innerHTML = data.daily[0].uvi;
+              humidityNowEl.innerHTML = data.daily[0].humidity;
+              windNowEl.innerHTML = data.daily[0].wind_speed;
+              uvNowEl.innerHTML = data.daily[0].uvi;
+              
+              var getFutureData = function() {
+                for (let i=1; i<=5; i++) { 
+                // document.getElementById("date" + i).innerHTML = data.daily[i].dt;
+                document.getElementById("humidity" + i).innerHTML = data.daily[i].humidity;
+                document.getElementById("wind" + i).innerHTML = data.daily[i].wind_speed;
+                document.getElementById("temp" + i).innerHTML = data.daily[i].temp.max;
+              
+                var apiFutureIconCode = data.daily[i].weather[0].icon;
+                var apiFutureIconUrl = 'https://openweathermap.org/img/wn/' + apiFutureIconCode + '@2x.png';
+                $('#icon' + i).attr('src', apiFutureIconUrl);
+
+                var futureDateEl = new Date(data.daily[i].dt * 1000).toDateString("en", { weekday: "long", });
+                document.getElementById("date" + i).innerHTML = futureDateEl;
+                };
+              };
+              getFutureData();
+            });
+          });
+        };
+        getWeather();
       });
     });
   };
-getWeather();
+getLatLon();
 });
-
-// click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
-// n icon representation of weather conditions, the temperature, the wind speed, and the humidity
-// for (var i = 0; i < 5; i++) {
-  
-  // var date = list[i].dt;
-  // var temp = list[i].main.temp;
-  // var icon = list[i].main.weather.icon;
-  // var humidity = list[i].main.humidity;
-// };
