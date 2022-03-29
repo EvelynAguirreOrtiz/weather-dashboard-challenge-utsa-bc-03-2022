@@ -7,6 +7,9 @@ var tempNowEl = document.getElementById("current-temp");
 var humidityNowEl = document.getElementById("current-humidity");
 var windNowEl = document.getElementById("current-wind");
 var uvNowEl = document.getElementById("current-uv");
+var histBox = document.querySelector(".control");
+// create empty array to store search history
+var searchHistory = [];
 
 $(document).ready(function () {
   $("#search-city").val(localStorage.getItem("search-city"));
@@ -21,6 +24,9 @@ $(document).ready(function () {
 $("#search-btn").click(function () {
     // find city geolocation
     var apiUrlGeoLoc = 'http://api.openweathermap.org/geo/1.0/direct?q=' + inputCityEl.value + '&limit=1&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+    // push city into search history array
+    searchHistory.push(inputCityEl.value)
+    localStorage.setItem("search-history", JSON.stringify(searchHistory))
     var getLatLon = function () {
       fetch(apiUrlGeoLoc).then(function (response) {
         response.json().then(function (data) {
@@ -80,6 +86,19 @@ localStorage.setItem("current-wind", document.getElementById("current-wind").val
 localStorage.setItem("current-uv", document.getElementById("current-uv").value); 
 });
 
+// write a function to get search history from local storage
+function getHistory(){
+  var localStorageArr = JSON.parse(localStorage.getItem("search-history"));
+  console.log(localStorageArr);
+  localStorageArr.forEach(city => {
+    searchHistory.push(city);
+    var btn = document.createElement("button");
+    btn.innerText = city
+    btn.classList.add("hist-btn")
+    histBox.appendChild(btn)
+  })
+}
+getHistory();
 // search Atlanta
 $("#atlanta").click(function () {
   inputCityEl.value = "Atlanta";
