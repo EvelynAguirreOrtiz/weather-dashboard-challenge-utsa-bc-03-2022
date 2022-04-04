@@ -20,7 +20,7 @@ $(document).ready(function () {
 // search city 
 $("#search-btn").click(function () {
     // find city geolocation
-    var apiUrlGeoLoc = 'http://api.openweathermap.org/geo/1.0/direct?q=' + inputCityEl.value + '&limit=1&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
+    var apiUrlGeoLoc = 'https://api.openweathermap.org/geo/1.0/direct?q=' + inputCityEl.value + '&limit=1&appid=3a0cc64f74febe3d2b029f4d03b00c0f&units=imperial'
     var getLatLon = function () {
       fetch(apiUrlGeoLoc).then(function (response) {
         response.json().then(function (data) {
